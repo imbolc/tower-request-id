@@ -34,7 +34,7 @@
 //! INFO request{id=01FGR4DNBYJ0M7ZV6XS3JHXDD1 method=GET uri=/}: logging: or directly: 01FGR4DNBYJ0M7ZV6XS3JHXDD1
 //! ```
 //!
-//! The full example is available in `examples/logging.rs`
+//! The full example is available in [examples/logging.rs][example]
 //!
 //! [tower]: https://crates.io/crates/tower
 //! [hyper]: https://crates.io/crates/hyper
@@ -44,6 +44,7 @@
 //! [`RequestSpan`]: crate::RequestSpan
 //! [tracing::span]: https://docs.rs/tracing/0.1.28/tracing/span/index.html
 //! [`Request.extensions()`]: https://docs.rs/http/0.2.5/http/request/struct.Request.html#method.extensions
+//! [example]: https://github.com/imbolc/tower-request-id/blob/main/examples/logging.rs
 
 use http::Request;
 #[cfg(feature = "tower-layer")]

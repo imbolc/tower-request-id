@@ -40,7 +40,7 @@ INFO request{id=01FGR4DNBYJ0M7ZV6XS3JHXDD1 method=GET uri=/}: logging: it's in t
 INFO request{id=01FGR4DNBYJ0M7ZV6XS3JHXDD1 method=GET uri=/}: logging: or directly: 01FGR4DNBYJ0M7ZV6XS3JHXDD1
 ```
 
-The full example is available in `examples/logging.rs`
+The full example is available in [examples/logging.rs][example]
 
 [tower]: https://crates.io/crates/tower
 [hyper]: https://crates.io/crates/hyper
@@ -50,6 +50,7 @@ The full example is available in `examples/logging.rs`
 [`RequestSpan`]: crate::RequestSpan
 [tracing::span]: https://docs.rs/tracing/0.1.28/tracing/span/index.html
 [`Request.extensions()`]: https://docs.rs/http/0.2.5/http/request/struct.Request.html#method.extensions
+[example]: https://github.com/imbolc/tower-request-id/blob/main/examples/logging.rs
 
 [version-badge]: https://img.shields.io/crates/v/tower-request-id.svg
 [docs-badge]: https://docs.rs/tower-request-id/badge.svg
