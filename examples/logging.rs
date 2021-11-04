@@ -1,33 +1,45 @@
-use axum::{handler::get, Router};
+use axum::{routing::get, Router};
 use http::Request;
-use tower::ServiceBuilder;
+use hyper::Body;
 use tower_http::trace::TraceLayer;
 use tower_request_id::{RequestId, RequestIdLayer, RequestSpan};
-use tracing::{info, Level};
+use tracing::{error_span, info, Level};
 
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt().with_max_level(Level::INFO).init();
 
-    let middlewares = ServiceBuilder::new()
-        .layer(RequestIdLayer)
-        .layer(TraceLayer::new_for_http().make_span_with(RequestSpan))
-        .into_inner();
-
     let app = Router::new()
-        .route(
-            "/",
-            get(|rq: Request<_>| async move {
-                info!("it's in the request span");
-                let id = rq.extensions().get::<RequestId>().unwrap();
-                info!("or directly: {}", id);
-                "ok"
+        .route("/", get(handler))
+        .layer(
+            // Let's create a tracing span for each request
+            TraceLayer::new_for_http().make_span_with(|request: &Request<Body>| {
+                // We get the request id from the extensions
+                let request_id = request
+                    .extensions()
+                    .get::<RequestId>()
+                    .map(ToString::to_string)
+                    .unwrap_or_else(|| "unknown".into());
+                // And then we put it along with other information into the `request` span
+                tracing::error_span!(
+                    "request",
+                    id = %request_id,
+                    method = %request.method(),
+                    uri = %request.uri(),
+                )
             }),
         )
-        .layer(middlewares);
+        // This layer creates a new id for each request and puts it into the request extensions.
+        // Note that it should be added after the Trace layer.
+        .layer(RequestIdLayer);
 
     axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
         .serve(app.into_make_service())
         .await
         .unwrap();
+}
+
+async fn handler() -> &'static str {
+    info!("hi");
+    "ok"
 }
