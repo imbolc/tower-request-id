@@ -2,7 +2,7 @@ use axum::{routing::get, Router};
 use http::Request;
 use hyper::Body;
 use tower_http::trace::TraceLayer;
-use tower_request_id::{RequestId, RequestIdLayer, RequestSpan};
+use tower_request_id::{RequestId, RequestIdLayer};
 use tracing::{error_span, info, Level};
 
 #[tokio::main]
@@ -21,7 +21,7 @@ async fn main() {
                     .map(ToString::to_string)
                     .unwrap_or_else(|| "unknown".into());
                 // And then we put it along with other information into the `request` span
-                tracing::error_span!(
+                error_span!(
                     "request",
                     id = %request_id,
                     method = %request.method(),
