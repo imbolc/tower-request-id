@@ -2,7 +2,7 @@
 name = "tower-request-id"
 version = "0.1.0"
 edition = "2018"
-description = "A tower (Hyper, Axum, Warp) service to add a unique id for every request"
+description = "A tower (hyper, axum, warp) service to add a unique id for every request"
 keywords = ["tower", "hyper", "axum", "warp"]
 license = "MIT"
 readme = "README.md"

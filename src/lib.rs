@@ -3,16 +3,15 @@
 //!
 //! ## Usage
 //!
-//! After adding the [`RequestIdLayer`] into [axum]'s middlewares the request id is available in
-//! [`Request.extensions()`][]. For a request [tracing::span][] configuration refer to
+//! After adding the [`RequestIdLayer`] into the [axum] middlewares the request id is available in
+//! the [`http::Request::extensions()`]. For the [tracing] integration, please refer to the
 //! [logging example].
 //!
 //! [tower]: https://crates.io/crates/tower
 //! [hyper]: https://crates.io/crates/hyper
 //! [axum]: https://crates.io/crates/axum
 //! [warp]: https://crates.io/crates/warp
-//! [`RequestIdLayer`]: crate::RequestIdLayer
-//! [tracing::span]: https://docs.rs/tracing/0.1.28/tracing/span/index.html
+//! [tracing]: https://crates.io/crates/tracing
 //! [`Request.extensions()`]: https://docs.rs/http/0.2.5/http/request/struct.Request.html#method.extensions
 //! [logging example]: https://github.com/imbolc/tower-request-id/blob/main/examples/logging.rs
 
@@ -23,6 +22,7 @@ use tower_layer::Layer;
 use tower_service::Service;
 use ulid::Ulid;
 
+/// A newtype around [`ulid::Ulid`]
 #[derive(Debug)]
 pub struct RequestId(pub Ulid);
 
@@ -44,6 +44,7 @@ pub struct RequestIdService<S> {
     inner: S,
 }
 
+/// Middleware to use [`RequestId`]
 impl<S> RequestIdService<S> {
     pub fn new(inner: S) -> Self {
         Self { inner }
@@ -70,6 +71,7 @@ where
     }
 }
 
+/// Layer to apply [`RequestIdService`] middleware.
 #[derive(Clone, Debug)]
 pub struct RequestIdLayer;
 
