@@ -10,9 +10,9 @@ repository = "https://github.com/imbolc/tower-request-id"
 
 [dependencies]
 http = "0.2"
-tower-layer = { version = "0.3" }
+tower-layer = "0.3"
 tower-service = "0.3"
-ulid = "0.4"
+ulid = "1.0"
 
 [dev-dependencies]
 axum = "0.3"
