@@ -1,7 +1,7 @@
 [package]
 name = "tower-request-id"
 version = "0.2.1"
-edition = "2018"
+edition = "2021"
 description = "A tower (hyper, axum, warp) service to add a unique id for every request"
 keywords = ["tower", "hyper", "axum", "warp"]
 license = "MIT"
