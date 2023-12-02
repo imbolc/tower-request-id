@@ -1,6 +1,6 @@
 [package]
 name = "tower-request-id"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 description = "A tower (hyper, axum, warp) service to add a unique id for every request"
 keywords = ["tower", "hyper", "axum", "warp"]
@@ -9,17 +9,17 @@ readme = "README.md"
 repository = "https://github.com/imbolc/tower-request-id"
 
 [dependencies]
-http = "0.2"
+http = "1"
 tower-layer = "0.3"
 tower-service = "0.3"
 ulid = "1"
 
 [dev-dependencies]
-axum = "0.6"
+axum = "0.7"
 tokio = { version = "1", features = ["full"] }
 tower = "0.4"
 tracing-subscriber = "0.3"
-tower-http = { version = "0.3", features = ["trace"] }
+tower-http = { version = "0.5", features = ["trace"] }
 rusty-hook = "0.11"
-hyper = "0.14"
+hyper = "1"
 tracing = "0.1"

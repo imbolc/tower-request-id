@@ -23,7 +23,7 @@ use tower_service::Service;
 use ulid::Ulid;
 
 /// A newtype around [`ulid::Ulid`]
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct RequestId(pub Ulid);
 
 impl RequestId {

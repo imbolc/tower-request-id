@@ -1,6 +1,5 @@
-use axum::{routing::get, Router};
+use axum::{body::Body, routing::get, Router};
 use http::Request;
-use hyper::Body;
 use tower_http::trace::TraceLayer;
 use tower_request_id::{RequestId, RequestIdLayer};
 use tracing::{error_span, info, Level};
@@ -33,10 +32,8 @@ async fn main() {
         // Note that it should be added after the Trace layer.
         .layer(RequestIdLayer);
 
-    axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
 
 async fn handler() -> &'static str {
